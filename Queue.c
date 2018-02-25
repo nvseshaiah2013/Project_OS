@@ -6,15 +6,17 @@ struct PCB
 {
     int burst,prior;
     char name[10];
-}
+};
 int main()
 {
     int n,i=0;
-    read(0,n,sizeof(n));
+    printf("Enter the no of Processes:\n");
+    scanf("%d",&n);
     struct PCB arr[n];
+    printf("Enter the process_name,process_burst, process_priority\n");
     while(n--)
     {
-        read(0,arr[i],sizeof(arr[i]));
+        scanf("%s%d%d",arr[i].name,&arr[i].burst,&arr[i].prior);
         ++i;
     }
     return 0;
