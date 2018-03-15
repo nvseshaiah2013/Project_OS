@@ -2,6 +2,7 @@
 #include<unistd.h>
 #include<fcntl.h>
 #include<stdlib.h>
+#include<string.h>
 #include<sys/types.h>
 #include<sys/stat.h>
 #define tq 4
@@ -16,49 +17,59 @@ struct Node
     char naam[10];
     struct Node *next;
 };
-struct Q1
+struct Q
 {
-    struct Node *f1,r1;
+    struct Node *f,*r;
 };
-struct Q2
+struct Q Create()
 {
-    struct Node *f2,*r2;
+    struct Q a;
+    a.f=NULL;
+    a.r=NULL;
+    return a;
+}
+struct Node* New(int a,int b,char *c)
+{
+    struct Node *t = (struct Node*)malloc(sizeof(struct Node));
+    t->bt=a;
+    t->pt=b;
+    strcpy(t->naam,c);
+    t->next=NULL;
+    return t;
 };
-struct Q3
+void enQ(struct Q q,int a,int b,char *c)
 {
-    struct Node *f3,*r3;
-};
-void enQ1(int a,int b,char *c)
-{
+struct Node *temp = New(a,b,c);
 
+    if (q.r == NULL)
+    {
+       q.f = q.r = temp;
+       return;
+    }
+    q.r->next = temp;
+    q.r = temp;
 }
-void deQ1()
+void deQ(struct Q q)
 {
-
-}
-void enQ2(int a,int b,char *c)
-{
-
-}
-void deQ2()
-{
-
-}
-void enQ3(int a,int b,char *c)
-{
-
-}
-void deQ3()
-{
-
+if (q.f == NULL)
+       return NULL;
+    struct QNode *temp = q.f;
+    q.f = q.f->next;
+    if (q.f == NULL)
+       q.r = NULL;
+    return temp;
 }
 int main()
 {
+    struct Q A,B,C;
+    A=Create();
+    B=Create();
+    C=Create();
     int n,i=0;
-    //write(1,"Enter the no of Processes:\n",27);
+    // write(1,"Enter the no of Processes:\n",27);
     printf("Enter the no of Processes: \n");
-    read(0,(char*)&n,sizeof(n));
-   // scanf("%d",&n);
+    // read(0,(char*)&n,sizeof(n));
+   scanf("%d",&n);
     struct PCB arr[n];
     //write(1,"Enter the process_name,process_burst, process_priority\n",55);
    printf("Priority Ranges :\n");
@@ -78,15 +89,15 @@ int main()
     }
     if(arr[i].prior >=0 && arr[i].prior<=10)
         {
-            enQ1(arr[i].burst,arr[i].prior,arr[i].name);
+            enQ(A,arr[i].burst,arr[i].prior,arr[i].name);
         }
         else if(arr[i].prior >=11 && arr[i].prior<=20)
         {
-            enQ2(arr[i].burst,arr[i].prior,arr[i].name);
+            enQ(B,arr[i].burst,arr[i].prior,arr[i].name);
         }
         else if(arr[i].prior >=21 && arr[i].prior<=30)
         {
-            enQ3(arr[i].burst,arr[i].prior,arr[i].name);
+            enQ(C,arr[i].burst,arr[i].prior,arr[i].name);
         }
         ++i;
     }
