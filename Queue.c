@@ -52,7 +52,7 @@ int main()
    scanf("%d",&n);
    int n1=n;
    printf("Priority Ranges :\n");
-    printf("Queue 1 (Round Robin): 0 - 10\n");
+    printf("Queue 1 (Round Robin): 1 - 10\n");
     printf("Queue 2 (Priority) : 11 - 20\n");
     printf("Queue 3 (First Come First Serve) : 21 - 30\n");
     while(n--)
@@ -63,12 +63,17 @@ int main()
         arr[i].wt=0;
         arr[i].ta=0;
         scanf("%d%d",&arr[i].burst,&arr[i].prior);
-    if(arr[i].prior<0 || arr[i].prior> 30)
+        if(arr[i].burst<1)
+        {
+            printf("Please enter process_burst again It should be >0\n");
+            scanf("%d",&arr[i].burst);
+        }
+    if(arr[i].prior<=0 || arr[i].prior> 30)
     {
          printf("Not a Valid process_priority\nPlease enter process_priority again");
             scanf("%d",&arr[i].prior);
     }
-    if(arr[i].prior >=0 && arr[i].prior<=10)
+    if(arr[i].prior >0 && arr[i].prior<=10)
         {
             enQ(A,arr[i].burst,arr[i].prior,arr[i].pid);
         }
